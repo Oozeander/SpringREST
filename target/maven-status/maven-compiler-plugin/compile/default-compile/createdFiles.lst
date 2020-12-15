@@ -1,0 +1,11 @@
+com\oozeander\exception\RestExceptions$BadRequestException.class
+com\oozeander\service\impl\ProductServiceImpl.class
+com\oozeander\resource\ProductResource.class
+com\oozeander\exception\RestExceptions$ProductNotFoundException.class
+com\oozeander\model\Product.class
+com\oozeander\repository\ProductRepository.class
+com\oozeander\exception\RestExceptions.class
+com\oozeander\service\ProductService.class
+com\oozeander\spring\PersistenceConfig.class
+com\oozeander\spring\RestConfig.class
+com\oozeander\spring\JavaConfig.class
