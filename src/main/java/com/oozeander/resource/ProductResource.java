@@ -21,18 +21,24 @@ import com.oozeander.exception.ProductNotFoundException;
 import com.oozeander.model.Product;
 import com.oozeander.service.ProductService;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 @RestController
 @RequestMapping("/api/products")
 @CrossOrigin
+@Api(tags = "Product Resource API")
 public class ProductResource {
 	@Autowired
 	private ProductService productService;
 
+	@ApiOperation(value = "Get all the available products", response = List.class, tags = "Product API")
 	@GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<List<Product>> get() {
 		return ResponseEntity.status(HttpStatus.OK).body(productService.get());
 	}
 
+	@ApiOperation(value = "Get one product", response = Product.class, tags = "Product API")
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Product> get(@PathVariable("id") Long id) {
 		Product product = productService.get(id);
@@ -41,6 +47,7 @@ public class ProductResource {
 		throw new ProductNotFoundException(Long.toString(id));
 	}
 
+	@ApiOperation(value = "Save a product", response = Void.class, tags = "Product API")
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> save(@RequestBody Product product) {
 		productService.save(product);
@@ -49,6 +56,7 @@ public class ProductResource {
 				.build();
 	}
 
+	@ApiOperation(value = "Modify a product", response = Void.class, tags = "Product API")
 	@PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> update(@PathVariable("id") Long id, @RequestBody Product product) {
 		boolean isDone = productService.update(id, product);
@@ -58,6 +66,7 @@ public class ProductResource {
 		throw new ProductNotFoundException(Long.toString(id));
 	}
 
+	@ApiOperation(value = "Delete a product", response = Void.class, tags = "Product API")
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
 		Product product = get(id).getBody();
